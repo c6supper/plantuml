@@ -87,7 +87,7 @@ public class CodeIteratorImpl implements CodeIterator {
 
 	public void jumpToCodePosition(CodePosition newPosition) throws EaterException {
 		this.countJump++;
-		if (this.countJump > 999) {
+		if (this.countJump > 9999) {
 			throw EaterException.unlocated("Infinite loop?");
 		}
 		final Position pos = (Position) newPosition;
