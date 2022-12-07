@@ -5,12 +5,12 @@
  * (C) Copyright 2009-2023, Arnaud Roques
  *
  * Project Info:  http://plantuml.com
- * 
+ *
  * If you like this project or if you find it useful, you can support us at:
- * 
+ *
  * http://plantuml.com/patreon (only 1$ per month!)
  * http://plantuml.com/paypal
- * 
+ *
  * This file is part of PlantUML.
  *
  * PlantUML is free software; you can redistribute it and/or modify it
@@ -30,54 +30,39 @@
  *
  *
  * Original Author:  Arnaud Roques
- * 
  *
  */
-package net.sourceforge.plantuml.baraye.b;
+package net.sourceforge.plantuml.tim.stdlib;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import net.sourceforge.plantuml.cucadiagram.LeafType;
-import net.sourceforge.plantuml.cucadiagram.dot.Neighborhood;
-import net.sourceforge.plantuml.graphic.USymbol;
-import net.sourceforge.plantuml.skin.VisibilityModifier;
-import net.sourceforge.plantuml.svek.IEntityImage;
-import net.sourceforge.plantuml.svek.Margins;
+import net.sourceforge.plantuml.LineLocation;
+import net.sourceforge.plantuml.tim.EaterException;
+import net.sourceforge.plantuml.tim.EaterExceptionLocated;
+import net.sourceforge.plantuml.tim.TContext;
+import net.sourceforge.plantuml.tim.TFunctionSignature;
+import net.sourceforge.plantuml.tim.TMemory;
+import net.sourceforge.plantuml.tim.expression.TValue;
 
-public interface ILeaf extends IEntity {
+public class LogicalNand extends SimpleReturnFunction {
 
-	public void setContainer(IGroup container);
+	public TFunctionSignature getSignature() {
+		return new TFunctionSignature("%nand", 2);
+	}
 
-	public Margins getMargins();
+	public boolean canCover(int nbArg, Set<String> namedArgument) {
+		return nbArg >= 2;
+	}
 
-	public int getXposition();
+	public TValue executeReturnFunction(TContext context, TMemory memory, LineLocation location, List<TValue> values,
+			Map<String, TValue> named) throws EaterException, EaterExceptionLocated {
+		for (TValue v : values)
+			if (v.toBoolean() == false)
+				return TValue.fromBoolean(!false);
 
-	public void setXposition(int pos);
+		return TValue.fromBoolean(!true);
 
-	public IEntityImage getSvekImage();
-
-	public String getGeneric();
-
-	public boolean muteToType(LeafType newType, USymbol newSymbol);
-
-	public void setGeneric(String generic);
-
-	public void setSvekImage(IEntityImage svekImage);
-
-	public void setNeighborhood(Neighborhood neighborhood);
-
-	public Neighborhood getNeighborhood();
-
-	public Collection<String> getPortShortNames();
-
-	public void addPortShortName(String portShortName);
-
-	public void setVisibilityModifier(VisibilityModifier visibility);
-
-	public VisibilityModifier getVisibilityModifier();
-
-	public void setStatic(boolean isStatic);
-
-	public boolean isStatic();
-
+	}
 }

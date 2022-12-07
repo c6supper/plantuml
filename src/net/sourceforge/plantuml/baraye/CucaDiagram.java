@@ -33,7 +33,7 @@
  * 
  *
  */
-package net.sourceforge.plantuml.baraye.a;
+package net.sourceforge.plantuml.baraye;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -64,7 +64,6 @@ import net.sourceforge.plantuml.cucadiagram.Display;
 import net.sourceforge.plantuml.cucadiagram.EntityGender;
 import net.sourceforge.plantuml.cucadiagram.EntityPortion;
 import net.sourceforge.plantuml.cucadiagram.EntityPosition;
-import net.sourceforge.plantuml.cucadiagram.EntityUtils;
 import net.sourceforge.plantuml.cucadiagram.GroupHierarchy;
 import net.sourceforge.plantuml.cucadiagram.GroupType;
 import net.sourceforge.plantuml.cucadiagram.HideOrShow2;
@@ -94,12 +93,22 @@ import net.sourceforge.plantuml.xmlsc.StateDiagramScxmlMaker;
 
 public abstract class CucaDiagram extends UmlDiagram implements GroupHierarchy, PortionShower, ICucaDiagram {
 
+	static public final boolean QUARK = false;
+
 	static private final boolean G1972 = false;
 
 	// private String namespaceSeparator = ".";
 	// private String namespaceSeparator1 = GO1972 ? "::" : ".";
 	private String namespaceSeparator = null;
 	private boolean namespaceSeparatorHasBeenSet = false;
+
+	public Quark currentQuark() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public /*protected*/ Plasma getPlasma() {
+		throw new UnsupportedOperationException();
+	}
 
 	public final boolean V1972() {
 		if (getPragma().backToLegacyPackage()) {
@@ -138,6 +147,10 @@ public abstract class CucaDiagram extends UmlDiagram implements GroupHierarchy, 
 	public CucaDiagram(UmlSource source, UmlDiagramType type, Map<String, String> orig) {
 		super(source, type, orig);
 		this.stacks2.add(Ident.empty());
+	}
+
+	final public String getPortFor(String ent1String, Ident ident1) {
+		return null;
 	}
 
 	private Ident getLastID() {
@@ -232,6 +245,10 @@ public abstract class CucaDiagram extends UmlDiagram implements GroupHierarchy, 
 	}
 
 	final public Ident buildLeafIdentSpecial(String id) {
+		return buildFullyQualified(id);
+	}
+
+	final public Ident buildLeafIdentSpecial2(String id) {
 		return buildFullyQualified(id);
 	}
 

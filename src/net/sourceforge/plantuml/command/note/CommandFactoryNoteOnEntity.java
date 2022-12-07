@@ -41,7 +41,7 @@ import net.sourceforge.plantuml.StringUtils;
 import net.sourceforge.plantuml.Url;
 import net.sourceforge.plantuml.UrlBuilder;
 import net.sourceforge.plantuml.UrlMode;
-import net.sourceforge.plantuml.baraye.a.IEntity;
+import net.sourceforge.plantuml.baraye.IEntity;
 import net.sourceforge.plantuml.classdiagram.AbstractEntityDiagram;
 import net.sourceforge.plantuml.classdiagram.command.CommandCreateClassMultilines;
 import net.sourceforge.plantuml.command.BlocLines;
@@ -184,9 +184,9 @@ public final class CommandFactoryNoteOnEntity implements SingleMultiFactoryComma
 
 			@Override
 			public String getPatternEnd() {
-				if (withBracket) {
+				if (withBracket)
 					return "^(\\})$";
-				}
+
 				return "^[%s]*(end[%s]?note)$";
 			}
 

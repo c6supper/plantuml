@@ -30,54 +30,56 @@
  *
  *
  * Original Author:  Arnaud Roques
- * 
+ *
  *
  */
-package net.sourceforge.plantuml.baraye.a;
+package net.sourceforge.plantuml.project;
 
-import java.util.Collection;
+import net.sourceforge.plantuml.activitydiagram3.ftile.Arrows;
+import net.sourceforge.plantuml.ugraphic.UPolygon;
 
-import net.sourceforge.plantuml.cucadiagram.LeafType;
-import net.sourceforge.plantuml.cucadiagram.dot.Neighborhood;
-import net.sourceforge.plantuml.graphic.USymbol;
-import net.sourceforge.plantuml.skin.VisibilityModifier;
-import net.sourceforge.plantuml.svek.IEntityImage;
-import net.sourceforge.plantuml.svek.Margins;
+public class GArrows extends Arrows {
 
-public interface ILeaf extends IEntity {
+	final static private double delta2 = 4;
 
-	public void setContainer(IGroup container);
+	@Override
+	public UPolygon asToUp() {
+		final UPolygon polygon = new UPolygon("asToUp");
+		polygon.addPoint(-delta2, 0);
+		polygon.addPoint(0, 0);
+		polygon.addPoint(delta2, 0);
+		polygon.addPoint(0, -4);
+		return polygon;
+	}
 
-	public Margins getMargins();
+	@Override
+	public UPolygon asToDown() {
+		final UPolygon polygon = new UPolygon("asToDown");
+		polygon.addPoint(-delta2, 0);
+		polygon.addPoint(0, 0);
+		polygon.addPoint(delta2, 0);
+		polygon.addPoint(0, 4);
+		return polygon;
+	}
 
-	public int getXposition();
+	@Override
+	public UPolygon asToRight() {
+		final UPolygon polygon = new UPolygon("asToRight");
+		polygon.addPoint(0, -delta2);
+		polygon.addPoint(0, 0);
+		polygon.addPoint(0, delta2);
+		polygon.addPoint(4, 0);
+		return polygon.translate(-4, 0);
+	}
 
-	public void setXposition(int pos);
-
-	public IEntityImage getSvekImage();
-
-	public String getGeneric();
-
-	public boolean muteToType(LeafType newType, USymbol newSymbol);
-
-	public void setGeneric(String generic);
-
-	public void setSvekImage(IEntityImage svekImage);
-
-	public void setNeighborhood(Neighborhood neighborhood);
-
-	public Neighborhood getNeighborhood();
-
-	public Collection<String> getPortShortNames();
-
-	public void addPortShortName(String portShortName);
-
-	public void setVisibilityModifier(VisibilityModifier visibility);
-
-	public VisibilityModifier getVisibilityModifier();
-
-	public void setStatic(boolean isStatic);
-
-	public boolean isStatic();
+	@Override
+	public UPolygon asToLeft() {
+		final UPolygon polygon = new UPolygon("asToLeft");
+		polygon.addPoint(0, -delta2);
+		polygon.addPoint(0, 0);
+		polygon.addPoint(0, delta2);
+		polygon.addPoint(-4, 0);
+		return polygon.translate(4, 0);
+	}
 
 }
